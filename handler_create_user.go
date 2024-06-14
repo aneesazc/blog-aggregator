@@ -40,3 +40,17 @@ func (cfg *apiConfig) handlerCreateUser(w http.ResponseWriter, r *http.Request){
 
 	respondWithJSON(w, http.StatusCreated, user)
 }
+
+func (cfg *apiConfig) handlerGetPostsForUser(w http.ResponseWriter, r *http.Request, user database.User){
+	posts, err := cfg.DB.GetPostsByUser(r.Context(), database.GetPostsByUserParams{
+		UserID: user.ID,
+		Limit: 10,
+	})
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, "Failed to get posts")
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, posts)
+
+}

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/aneesazc/blog-aggregator/internal/database"
 	"github.com/joho/godotenv"
@@ -16,6 +17,7 @@ type apiConfig struct {
 }
 
 func main(){
+
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -33,6 +35,8 @@ func main(){
 	apiCfg := &apiConfig{
 		DB: dbQueries,
 	}
+
+	go startScraping(dbQueries, 10, time.Minute)
 
 	mux := http.NewServeMux()
 
@@ -52,6 +56,7 @@ func main(){
 	mux.HandleFunc("GET /v1/feed_follows", apiCfg.middlewareAuth(apiCfg.handlerGetFeedFollows))
 	mux.HandleFunc("DELETE /v1/feed_follows/{feedFollowID}", apiCfg.middlewareAuth(apiCfg.handlerDeleteFollow))
 
+	mux.HandleFunc("GET /v1/posts", apiCfg.middlewareAuth(apiCfg.handlerGetPostsForUser))
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: mux,
