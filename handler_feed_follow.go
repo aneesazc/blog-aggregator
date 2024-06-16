@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 
@@ -35,6 +36,7 @@ func (cfg *apiConfig) handlerFeedFollow(w http.ResponseWriter, r *http.Request, 
 		FeedID: uuid.MustParse(params.FeedID),
 	})
 	if err != nil {
+		log.Printf("Error creating feed follow: %v", err)
 		respondWithError(w, http.StatusBadRequest, "Failed to create feed follow")
 		return
 	}

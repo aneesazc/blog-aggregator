@@ -64,7 +64,7 @@ func main(){
 
 	// Enable CORS
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"}, // Adjust this as needed
+		AllowedOrigins:   []string{"https://feed-scrape.vercel.app"},
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "PUT"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
 		AllowCredentials: true,
