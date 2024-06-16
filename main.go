@@ -71,7 +71,7 @@ func main(){
 	}).Handler(mux)
 	
 	srv := &http.Server{
-		Addr:    "0.0.0.0:" + port,
+		Addr:    ":" + port,
 		Handler: corsHandler,
 	}
 
