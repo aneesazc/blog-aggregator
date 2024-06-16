@@ -25,6 +25,9 @@ func main(){
 	}
 
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	dbURL := os.Getenv("DB_URL")
 
 	db, err := sql.Open("postgres", dbURL)
@@ -68,7 +71,7 @@ func main(){
 	}).Handler(mux)
 	
 	srv := &http.Server{
-		Addr:    ":" + port,
+		Addr:    "0.0.0.0:" + port,
 		Handler: corsHandler,
 	}
 
