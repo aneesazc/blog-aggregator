@@ -10,6 +10,7 @@ import (
 	"github.com/aneesazc/blog-aggregator/internal/database"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"github.com/rs/cors"
 )
 
 type apiConfig struct {
@@ -57,9 +58,18 @@ func main(){
 	mux.HandleFunc("DELETE /v1/feed_follows/{feedFollowID}", apiCfg.middlewareAuth(apiCfg.handlerDeleteFollow))
 
 	mux.HandleFunc("GET /v1/posts", apiCfg.middlewareAuth(apiCfg.handlerGetPostsForUser))
+
+	// Enable CORS
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"}, // Adjust this as needed
+		AllowedMethods:   []string{"GET", "POST", "DELETE", "PUT"},
+		AllowedHeaders:   []string{"Authorization", "Content-Type"},
+		AllowCredentials: true,
+	}).Handler(mux)
+	
 	srv := &http.Server{
 		Addr:    ":" + port,
-		Handler: mux,
+		Handler: corsHandler,
 	}
 
 	log.Printf("Serving on port: %s\n", port)

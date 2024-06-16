@@ -34,24 +34,6 @@ func (cfg *apiConfig) handlerCreateFeed(w http.ResponseWriter, r *http.Request, 
         return
     }
 
-    // log.Printf("Checking for existing feed with URL: %s", params.URL)
-
-    // // Check if a feed with the given URL already exists
-    // existingFeed, err := cfg.DB.GetFeedByURL(r.Context(), params.URL)
-    // if err != nil && err != sql.ErrNoRows {
-    //     log.Printf("Database error: %v", err)
-    //     respondWithError(w, http.StatusInternalServerError, "Database error")
-    //     return
-    // }
-    // if err == nil {
-    //     log.Printf("Feed with URL %s already exists", params.URL)
-    //     respondWithError(w, http.StatusBadRequest, "Feed with this URL already exists")
-    //     return
-    // }
-	// fmt.Println(existingFeed)
-
-    // log.Println("No existing feed found, proceeding to create a new feed")
-
     feed, err := cfg.DB.CreateFeed(r.Context(), database.CreateFeedParams{
         Name:      params.Name,
         Url:       params.URL,
