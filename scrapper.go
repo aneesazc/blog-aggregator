@@ -11,6 +11,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// The function initiates multiple goroutines to scrape feeds concurrently.
 func startScraping(db *database.Queries, conc int, timeBwRequest time.Duration){
 	log.Printf("Starting scraping with %d goroutines every %s duration\n", conc, timeBwRequest)
 	ticker := time.NewTicker(timeBwRequest)
@@ -31,6 +32,7 @@ func startScraping(db *database.Queries, conc int, timeBwRequest time.Duration){
 
 }
 
+// The function is called for each feed, marking it as fetched and processing the feed items.
 func scrapeFeed(db *database.Queries, feed database.Feed, wg *sync.WaitGroup){
 	defer wg.Done()
 	// Scrape the feed
