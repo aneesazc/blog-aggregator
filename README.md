@@ -1,10 +1,10 @@
-# Go Backend for Blog Aggregator
+# Go Backend for Blog Aggregator- FeedScrape
 
 ## Description
 
 This is the backend service for the Blog Aggregator application, developed using Go. It provides APIs for managing users, feeds, and feed follows, and is deployed on Google Cloud Platform (GCP) using Cloud Run. A major feature of this project is the concurrent scraping of blogs from the followed feeds, ensuring that users receive the latest posts efficiently.
 
-## Why?
+## Goals
 
 The goal of this project is to create a robust, scalable, and efficient backend service for aggregating blog feeds. It aims to provide a seamless experience for users to register, manage their feeds, and follow updates from various blog sources. Concurrent scraping allows for timely updates and efficient handling of multiple feeds.
 
@@ -74,7 +74,7 @@ The goal of this project is to create a robust, scalable, and efficient backend 
 
 ## Usage
 
-### Endpoints
+### A few Endpoints
 
 - **Health Check**
 
